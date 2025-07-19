@@ -2,115 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Infinity Explore</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Odisha Interactive Map</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Header -->
-  <header>
-    <div class="logo">
-      <img src="logo.png" alt="Infinity Explore Logo" />
-      <h1>Infinity Explore</h1>
-    </div>
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#trending">Trending</a>
-      <a href="#videos">Videos</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
-
-  <!-- Hero Banner -->
-  <section class="hero-banner" id="home">
-    <div class="slider-wrapper">
-      <div class="slider">
-        <div class="slide"><img src="images/thumb1.jpg" alt="Video 1" /></div>
-        <div class="slide"><img src="images/thumb2.jpg" alt="Video 2" /></div>
-        <div class="slide"><img src="images/thumb3.jpg" alt="Video 3" /></div>
-      </div>
-      <div id="dots-container" class="dots-wrapper"></div>
-    </div>
-  </section>
-
-  <!-- Trending -->
-  <section class="trending" id="trending">
-    <h2>Trending This Month</h2>
-    <div class="trending-grid">
-      <div class="place-card">
-        <img src="images/maa-tarini.jpg" alt="Maa Tarini Temple" />
-        <h3>Maa Tarini Temple, Ghatagaon</h3>
-      </div>
-      <div class="place-card">
-        <img src="images/barehipani.jpg" alt="Barehipani Waterfall" />
-        <h3>Barehipani Waterfall, Simlipal</h3>
-      </div>
-      <div class="place-card">
-        <img src="images/chandipur.jpg" alt="Chandipur Beach" />
-        <h3>Chandipur Beach, Odisha</h3>
-      </div>
-    </div>
-  </section> 
-
-  <!-- Stats Section -->
-<section class="stats">
-  <h2>YouTube Channel Overview</h2>
-  <div class="stats-grid">
-    
-    <!-- Total Subscribers -->
-    <div class="stat-box">
-      <div class="icon">
-        <!-- Subscriber SVG Icon -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#e74c3c" viewBox="0 0 24 24">
-          <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/>
-        </svg>
-      </div>
-      <h3 class="counter" data-target="21000">0</h3>
-      <p>Total Subscribers</p>
-    </div>
-
-    <!-- Total Views -->
-    <div class="stat-box">
-      <div class="icon">
-        <!-- Views SVG Icon -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#3498db" viewBox="0 0 24 24">
-          <path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5zm0-8c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"/>
-        </svg>
-      </div>
-      <h3 class="counter" data-target="4000000">0</h3>
-      <p>Total Views</p>
-    </div>
-
-    <!-- Total Videos -->
-    <div class="stat-box">
-      <div class="icon">
-        <!-- Videos SVG Icon -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#f1c40f" viewBox="0 0 24 24">
-          <path d="M10 16.5l6-4.5-6-4.5v9zM21 6h-2v12h2V6zM3 6h16v12H3z"/>
-        </svg>
-      </div>
-      <h3 class="counter" data-target="150">0</h3>
-      <p>Total Videos</p>
-    </div>
-
-    <!-- Most Viewed Video -->
-    <div class="stat-box">
-      <div class="icon">
-        <!-- Most Viewed SVG Icon -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#2ecc71" viewBox="0 0 24 24">
-          <path d="M10 16.5l6-4.5-6-4.5v9zM21 3H3v18h18V3z"/>
-        </svg>
-      </div>
-      <h3 class="counter" data-target="800000">0</h3>
-      <p>Most Viewed Video</p>
-    </div>
-
-  </div>
-</section>
-
-<!-- Odisha Map Section -->
- <div class="map-wrapper">
+<div class="map-wrapper">
   <!-- Background image -->
   <img src="img/background.jpg" alt="Background" class="bg-image" />
   <div id="tooltip" class="tooltip"></div>
@@ -242,41 +139,10 @@
      <!-- SVG Map end -->
 
 
-  <!-- Categories -->
-  <section class="categories">
-    <h2>Explore by Category</h2>
-    <div class="category-buttons">
-      <button>Temples</button>
-      <button>Waterfalls</button>
-      <button>Mountains</button>
-      <button>Landscapes</button>
-    </div>
-  </section>
 
-  <!-- Videos -->
-  <section class="videos" id="videos">
-    <h2>Watch More on YouTube</h2>
-    <div class="video-thumbnails">
-      <a href="https://www.youtube.com/watch?v=KTZZ3YvCpAE" target="_blank">
-        <img src="images/thumb1.jpg" alt="Video 1" />
-      </a>
-      <a href="https://www.youtube.com/watch?v=2oF48xfJ8-M" target="_blank">
-        <img src="images/thumb2.jpg" alt="Video 2" />
-      </a>
-    </div>
-  </section>
 
-  <!-- About -->
-  <section class="about" id="about">
-    <h2>About Infinity Explore</h2>
-    <p>Infinity Explore is a travel-focused YouTube channel sharing immersive walking tours, scenic destinations, temple visits, and natural beauty from across Odisha and India.</p>
-  </section>
 
-  <!-- Footer -->
-  <footer id="contact">
-    <p>Follow on YouTube: <a href="https://www.youtube.com/@InfinityExplore" target="_blank">@InfinityExplore</a></p>
-    <p>&copy; 2025 Infinity Explore. All rights reserved.</p>
-  </footer>
+
 
   <script src="script.js"></script>
 </body>

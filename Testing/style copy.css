@@ -1,0 +1,138 @@
+body, html {
+  margin: 0; padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.map-container {
+  position: relative;
+  width: 80vw;
+  max-width: 900px;
+  margin: 2rem auto;
+}
+
+
+#odisha-map {
+  width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 2;
+}
+
+.icons {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 3;
+}
+
+.icon {
+  position: absolute;
+  cursor: pointer;
+}
+
+.icon img {
+  width: 24px;
+  height: 24px;
+}
+
+.tooltip {
+  position: absolute;
+  padding: 6px 10px;
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+/* Show tooltip when visible */
+.tooltip.visible {
+  opacity: 1;
+}
+
+
+#map-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+  background-image: url('background.jpg'); /* <-- Your image file */
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
+}
+
+/* new design for svg*/
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: #000;
+}
+
+/* Wrapper to center everything */
+.map-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container with fixed width and height */
+.map-content {
+  position: relative;
+  width: 90%;
+  height: 70%;
+}
+
+/* Background image behind the SVG */
+.bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(5px);
+  z-index: 1;
+  border-radius: 10px;
+}
+
+/* SVG map container */
+.svg-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+/* end */
+
+/* Default style for all districts */
+svg path {
+  fill: #000000;
+  stroke: #333;
+  stroke-width: 0.5;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect */
+svg path:hover {
+  fill: rgb(218, 215, 215);
+}
+
+/* Tooltip styling */
+.tooltip {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 5px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  pointer-events: none;
+  display: none;
+  z-index: 1000;
+}

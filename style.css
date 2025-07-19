@@ -385,3 +385,118 @@ body {
 }
 
 /* end card align */
+
+
+/* --- 2. Main Layout Containers (from your design) --- */
+/* Wrapper to center everything on the page */
+.map-wrapper {
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  padding: 20px;
+  box-sizing: border-box;
+  
+}
+
+/* Container with the background and the SVG map */
+.map-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 900px; /* Max size for the map area */
+  max-height: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Background image behind the SVG */
+.bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(5px);
+  z-index: 1;
+ 
+}
+
+/* SVG map container */
+.svg-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 2; /* Ensures the SVG is on top of the background */
+}
+
+/* --- 3. SVG and Map Element Styling --- */
+
+/* This targets your main SVG element */
+.svg-container svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Style for the districts (using the .district class we added) */
+.district {
+  fill: rgba(200, 220, 200, 0.6); /* Semi-transparent green/grey */
+  stroke: #ffffff;
+  stroke-width: 0.75px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+/* Hover effect for districts */
+.district:hover {
+  fill: rgba(255, 255, 255, 0.8); /* Bright white on hover */
+}
+
+
+/* --- 4. Interactive Pin Styling --- */
+.pin image {
+  transition: transform 0.2s ease, filter 0.2s ease;
+  transform-origin: center;
+  cursor: pointer;
+}
+
+.pin:hover image {
+  transform: scale(1.03);
+  filter: drop-shadow(0 0 4px rgba(255, 51, 102, 0.6));
+}
+/* --- 5. Tooltip Styling (Cleaned up) --- */
+#tooltip {
+  position: absolute;
+  display: none; /* We use JS to switch between none and block */
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  pointer-events: none; /* Lets mouse events pass through to the map */
+  white-space: nowrap;
+  z-index: 1000; /* Ensures it's on top of everything */
+}
+.map-wrapper {
+  position: relative; /* This is important! */
+}
+
+/* Style for the districts (using the .district class we added) */
+.district {
+  fill: rgb(167, 144, 144); /* Solid red color for the map */
+  stroke: #fffbfb;
+  stroke-width: 0.75px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+/* Hover effect for districts */
+.district:hover {
+  fill: #fff !important; /* White on hover */
+  stroke: #222;
+  stroke-width: 1.5px;
+  transition: fill 0.2s;
+}

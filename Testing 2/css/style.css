@@ -1,0 +1,33 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.map-container {
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+  position: relative;
+}
+
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Background image embedded via <image> inside SVG */
+
+/* Hover effect */
+.district {
+  fill: rgba(255, 255, 255, 0.1);
+  stroke: #333;
+  stroke-width: 2;
+  transition: fill 0.3s ease;
+  cursor: pointer;
+}
+
+.district:hover {
+  fill: rgba(255, 0, 0, 0.5);
+}

@@ -81,3 +81,39 @@ if (statsSection) {
   observer.observe(statsSection);
 }
 
+
+// ✅ Map Pin Tooltip & Click Logic
+document.addEventListener('DOMContentLoaded', () => {
+  const pins = document.querySelectorAll('.pin');
+  const tooltip = document.getElementById('tooltip');
+  const mapWrapper = document.querySelector('.map-wrapper');
+
+  if (!pins.length || !tooltip || !mapWrapper) return;
+
+  pins.forEach(pin => {
+    const placeName = pin.getAttribute('data-place');
+    const url = pin.getAttribute('data-link');
+
+    pin.addEventListener('mouseover', () => {
+      tooltip.textContent = placeName;
+      tooltip.style.display = 'block';
+    });
+
+    pin.addEventListener('mouseout', () => {
+      tooltip.style.display = 'none';
+    });
+
+    pin.addEventListener('mousemove', (e) => {
+      const rect = mapWrapper.getBoundingClientRect();
+      tooltip.style.left = `${e.clientX - rect.left + 15}px`;
+      tooltip.style.top = `${e.clientY - rect.top + 15}px`;
+    });
+
+    pin.addEventListener('click', () => {
+      if (url) {
+        window.open(url, '_blank');
+      }
+    });
+  });
+});
+
