@@ -1,122 +1,352 @@
-/* --- 1. Basic Setup & Body --- */
-body, html {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background: #000; /* Dark background from your design */
-  overflow: hidden; /* Prevents scrollbars if map-wrapper is full height */
+/*
+    General Body Styles:
+    - Reset margin, set font-family, hide overflow.
+    - Use flexbox to center content vertically and horizontally on the page.
+*/
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden; /* Prevent scrollbars from appearing due to 3D transforms */
+    background-color: #f0f0f0; /* Light background for fallback */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ensure body takes full viewport height */
 }
 
-/* --- 2. Main Layout Containers (from your design) --- */
-/* Wrapper to center everything on the page */
-.map-wrapper {
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  padding: 20px;
-  box-sizing: border-box;
-  
+/*
+    Hero Section Styles:
+    - Full width and height.
+    - Flexbox for column layout (title then carousel).
+    - Position relative to contain the absolute background.
+*/
+.hero-section {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden; /* Ensure content and background are clipped within this section */
+    /* Add gradient for better visual if no background image or if image is subtle */
+    background: linear-gradient(120deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
-/* Container with the background and the SVG map */
-.map-content {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  max-width: 900px; /* Max size for the map area */
-  max-height: 800px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/*
+    Hero Background Styles:
+    - Absolute position to cover the entire hero section.
+    - Placeholder image: Replace with your actual blurred airport/city image.
+    - `filter` for blur and brightness to match the reference image.
+    - `z-index: -1` to place it behind other content.
+*/
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* IMPORTANT: Replace with your blurred background image URL */
+    background-image: url('images/carouselimage/carusoal-bg-img.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(8px) brightness(0.6); /* Adjust blur and brightness as needed */
+    z-index: -1;
 }
 
-/* Background image behind the SVG */
-.bg-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: blur(5px);
-  z-index: 1;
- 
+/*
+    Section Title Styles:
+    - Color and font size for the "Most Popular Destinations" title.
+    - Text shadow for better readability against the background.
+    - `z-index` to ensure it's above the background.
+*/
+.section-title {
+    color: #fff;
+    font-size: 2.8em;
+    margin-bottom: 50px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 1; /* Ensure title is above the background */
 }
 
-/* SVG map container */
-.svg-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  z-index: 2; /* Ensures the SVG is on top of the background */
+/*
+    Carousel Container Styles:
+    - Sets the overall dimensions and `perspective` for the 3D effect.
+    - `perspective` property defines how deep the 3D space appears.
+*/
+.carousel-container {
+    width: 90%;
+    max-width: 1200px; /* Max width to prevent it from getting too wide on large screens */
+    height: 400px; /* Height of the visible carousel area */
+    perspective: 1500px; /* Higher value means less intense perspective */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1; /* Ensure carousel is above the background */
+    overflow: hidden; /* Hide items outside the main view */
 }
 
-/* --- 3. SVG and Map Element Styling --- */
-
-/* This targets your main SVG element */
-.svg-container svg {
-  width: 100%;
-  height: 100%;
+/*
+    Carousel Inner Styles:
+    - `transform-style: preserve-3d` is crucial for child elements to be positioned in 3D space.
+    - `transition` for smooth animation when the overall transform changes (e.g., if you were rotating the whole container).
+*/
+.carousel-inner {
+    width: 100%; /* Take full width of container for positioning */
+    height: 100%;
+    position: relative; /* All carousel items will be absolutely positioned relative to this */
+    transform-style: preserve-3d; /* Allows child elements to be positioned in 3D */
+    transition: transform 0.8s ease-in-out; /* For overall rotation/translation if desired */
 }
 
-/* Style for the districts (using the .district class we added) */
-.district {
-  fill: rgba(200, 220, 200, 0.6); /* Semi-transparent green/grey */
-  stroke: #ffffff;
-  stroke-width: 0.75px;
-  transition: all 0.3s ease;
-  cursor: pointer;
+/*
+    Carousel Item Styles:
+    - Base styling for each image card.
+    - `position: absolute` is critical for 3D positioning.
+    - `backface-visibility: hidden` can help prevent flickering on some browsers during 3D transforms.
+    - `transition` for smooth animation of `transform`, `opacity`, and `box-shadow` when active item changes.
+*/
+.carousel-item {
+    position: absolute; /* Essential for 3D positioning within carousel-inner */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the item initially */
+    width: 300px; /* Base width */
+    height: 250px; /* Base height */
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(60, 60, 60, 0.18);
+    overflow: hidden;
+    transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55), /* More bouncy transition for 3D */
+                opacity 0.6s ease,
+                box-shadow 0.3s ease;
+    cursor: pointer;
+    /* Initial state (will be overridden by JS data-position transforms) */
+    opacity: 0; /* Initially hidden until positioned by JS */
+    pointer-events: none; /* Disable clicks until active or near active */
 }
 
-/* Hover effect for districts */
-.district:hover {
-  fill: rgba(255, 255, 255, 0.8); /* Bright white on hover */
+/* Specific transforms for different positions (set by JS data-position) */
+.carousel-item[data-position="0"] { /* Active item */
+    transform: translate(-50%, -50%) scale(1.1) rotateY(0deg) translateZ(100px); /* Larger, closer */
+    opacity: 1;
+    z-index: 10;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    pointer-events: auto; /* Enable clicks */
+}
+
+.carousel-item[data-position="-1"] { /* Left item (just before active) */
+    transform: translate(-50%, -50%) translateX(-250px) rotateY(20deg) scale(0.9) translateZ(-50px);
+    opacity: 0.8;
+    z-index: 9;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    pointer-events: auto;
+}
+
+.carousel-item[data-position="1"] { /* Right item (just after active) */
+    transform: translate(-50%, -50%) translateX(250px) rotateY(-20deg) scale(0.9) translateZ(-50px);
+    opacity: 0.8;
+    z-index: 9;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    pointer-events: auto;
+}
+
+.carousel-item[data-position="-2"] { /* Further left */
+    transform: translate(-50%, -50%) translateX(-450px) rotateY(35deg) scale(0.7) translateZ(-150px);
+    opacity: 0.5;
+    z-index: 8;
+    pointer-events: auto;
+}
+
+.carousel-item[data-position="2"] { /* Further right */
+    transform: translate(-50%, -50%) translateX(450px) rotateY(-35deg) scale(0.7) translateZ(-150px);
+    opacity: 0.5;
+    z-index: 8;
+    pointer-events: auto;
+}
+
+/* --- NEW POSITIONS FOR 3 IMAGES ON EACH SIDE --- */
+.carousel-item[data-position="-3"] { /* Even further left (the 3rd visible item) */
+    transform: translate(-50%, -50%) translateX(-600px) rotateY(45deg) scale(0.5) translateZ(-200px);
+    opacity: 0.2; /* Make it more visible than previously */
+    z-index: 7;
+    pointer-events: auto; /* Make it clickable if desired, or set to none */
+}
+
+.carousel-item[data-position="3"] { /* Even further right (the 3rd visible item) */
+    transform: translate(-50%, -50%) translateX(600px) rotateY(-45deg) scale(0.5) translateZ(-200px);
+    opacity: 0.2; /* Make it more visible than previously */
+    z-index: 7;
+    pointer-events: auto; /* Make it clickable if desired, or set to none */
+}
+
+/* Hide items beyond the 3rd position on each side */
+.carousel-item[data-position="-4"],
+.carousel-item[data-position="4"] {
+    transform: translate(-50%, -50%) scale(0.1) translateZ(-500px); /* Send far away, effectively hidden */
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Any other data-position values will also be effectively hidden by the above */
+
+
+/* Styles for the image inside each carousel item */
+.carousel-item img {
+    width: 100%;
+    height: 100%; /* Image takes full height of the carousel-item */
+    object-fit: cover;
+    display: block;
+    border-radius: 0; /* Let .carousel-item handle the border-radius */
+}
+
+/* Styles for the text overlay at the bottom of the card */
+.text-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0) 100%);
+    color: #fff;
+    padding: 20px 15px 15px; /* Adjust padding as needed */
+    box-sizing: border-box; /* Ensures padding doesn't add to width */
+    z-index: 2; /* Ensure it's above the image */
+    border-bottom-left-radius: 18px; /* Match card border radius */
+    border-bottom-right-radius: 18px; /* Match card border radius */
+    text-align: left; /* Align text to the left */
+}
+
+.place-name { /* Main title like "Shimla's Best Kept Secret" */
+    font-size: 1.4em;
+    font-weight: 600;
+    margin-bottom: 5px;
+    line-height: 1.2;
+}
+
+.district-name { /* Secondary text like "Shimla" or "Himachal Pradesh" */
+    font-size: 0.9em;
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+/*
+    Navigation Arrows Styles:
+    - Positioned absolutely to the left/right of the carousel.
+    - Styled as buttons for clear interaction.
+*/
+.nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%); /* Vertically center the arrows */
+    background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white */
+    border: none;
+    padding: 15px 20px;
+    font-size: 2em;
+    color: #333;
+    cursor: pointer;
+    z-index: 100; /* Ensure arrows are on top of carousel items and title */
+    border-radius: 5px;
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.nav-arrow:hover {
+    background-color: rgba(255, 255, 255, 1); /* Full white on hover */
+}
+
+.nav-arrow.left {
+    left: 20px; /* Position left arrow relative to carousel-container */
+}
+
+.nav-arrow.right {
+    right: 20px; /* Position right arrow relative to carousel-container */
+}
+
+/*
+    Responsive Adjustments (Media Queries):
+    - Adjust font sizes, item sizes, and arrow visibility for different screen widths.
+*/
+@media (max-width: 1024px) { /* Adjust for larger tablets/laptops */
+    .carousel-item[data-position="-1"] {
+        transform: translate(-50%, -50%) translateX(-180px) rotateY(20deg) scale(0.85) translateZ(-50px);
+    }
+    .carousel-item[data-position="1"] {
+        transform: translate(-50%, -50%) translateX(180px) rotateY(-20deg) scale(0.85) translateZ(-50px);
+    }
+    .carousel-item[data-position="-2"] {
+        transform: translate(-50%, -50%) translateX(-340px) rotateY(35deg) scale(0.65) translateZ(-150px);
+    }
+    .carousel-item[data-position="2"] {
+        transform: translate(-50%, -50%) translateX(340px) rotateY(-35deg) scale(0.65) translateZ(-150px);
+    }
+    .carousel-item[data-position="-3"] {
+        transform: translate(-50%, -50%) translateX(-480px) rotateY(45deg) scale(0.45) translateZ(-200px);
+    }
+    .carousel-item[data-position="3"] {
+        transform: translate(-50%, -50%) translateX(480px) rotateY(-45deg) scale(0.45) translateZ(-200px);
+    }
 }
 
 
-/* --- 4. Interactive Pin Styling --- */
-.pin image {
-  transition: transform 0.2s ease, filter 0.2s ease;
-  transform-origin: center;
-  cursor: pointer;
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2em;
+        margin-bottom: 20px;
+    }
+    .carousel-container {
+        width: 100%;
+        height: 350px;
+        padding: 0;
+    }
+    
+    .carousel-item {
+        width: 250px;
+        height: 200px;
+    }
+
+    /* Adjust 3D transforms for smaller screens */
+    .carousel-item[data-position="0"] {
+        transform: translate(-50%, -50%) scale(1.05) rotateY(0deg) translateZ(80px);
+    }
+    .carousel-item[data-position="-1"] {
+        transform: translate(-50%, -50%) translateX(-160px) rotateY(25deg) scale(0.8) translateZ(-40px);
+    }
+    .carousel-item[data-position="1"] {
+        transform: translate(-50%, -50%) translateX(160px) rotateY(-25deg) scale(0.8) translateZ(-40px);
+    }
+    /* Hide the 3rd item on mobile for cleaner view, keep 2 on each side */
+    .carousel-item[data-position="-2"],
+    .carousel-item[data-position="2"],
+    .carousel-item[data-position="-3"],
+    .carousel-item[data-position="3"] {
+        opacity: 0;
+        pointer-events: none;
+        transform: translate(-50%, -50%) scale(0.1) translateZ(-500px); /* Send far away */
+    }
+
+    .nav-arrow {
+        padding: 10px 15px;
+        font-size: 1.5em;
+        /* display: none; */ /* Uncomment to hide on mobile */
+    }
+    .place-name {
+        font-size: 1.2em;
+    }
+    .district-name {
+        font-size: 0.8em;
+    }
 }
 
-.pin:hover image {
-  transform: scale(1.03);
-  filter: drop-shadow(0 0 4px rgba(255, 51, 102, 0.6));
-}
-/* --- 5. Tooltip Styling (Cleaned up) --- */
-#tooltip {
-  position: absolute;
-  display: none; /* We use JS to switch between none and block */
-  background: rgba(0, 0, 0, 0.85);
-  color: white;
-  padding: 6px 10px;
-  border-radius: 4px;
-  font-size: 14px;
-  pointer-events: none; /* Lets mouse events pass through to the map */
-  white-space: nowrap;
-  z-index: 1000; /* Ensures it's on top of everything */
-}
-.map-wrapper {
-  position: relative; /* This is important! */
-}
-
-/* Style for the districts (using the .district class we added) */
-.district {
-  fill: rgb(167, 144, 144); /* Solid red color for the map */
-  stroke: #fffbfb;
-  stroke-width: 0.75px;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-/* Hover effect for districts */
-.district:hover {
-  fill: #fff !important; /* White on hover */
-  stroke: #222;
-  stroke-width: 1.5px;
-  transition: fill 0.2s;
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 1.5em;
+        margin-bottom: 30px;
+    }
+    .carousel-item {
+        width: 200px;
+        height: 180px; /* Even smaller cards */
+    }
+    .nav-arrow {
+        display: none; /* Hide arrows on very small screens */
+    }
 }
